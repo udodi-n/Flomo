@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>flomo</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h2 style="font-family: 'new-romantic', sans-serif; font-weight: 100;">Flomo</h2>
+</header>
+<div class="container">
+    <h1>Just like Pomodoro, <br> but <span id="better" style="font-family: 'gambarino', sans-serif; font-style: italic; font-weight: 100;">better</span>
+    </h1>
+    <div class="timer" id="timer">00:00</div>
+    
+    <div class="buttons">
+      <div class="snds">
+          <button id="startBtn">Start</button>
+          <button id="stopBtn">Stop</button>
+      </div>
+      <button id="endSessionBtn">End Session</button>
+    </div>
+    
+    <div id="breakInfo" style="font-family: 'gambarino', sans-serif; font-weight: 200;"></div>
+    <div id="logs" style="color: black;"></div>
+</div>
+<audio id="bellSound" src="bell.mp3" preload="auto"></audio>
+<div class="footer">
+    <p>Built by Udodi</p>
+    <div class="socials">
+        <a href="x.com/itsudodi"><img style="filter: invert();" src="images/twitter.png" alt="x_logo"></a>
+        <a href="github.com/udodi-n"><img style="filter: invert();" src="images/github.png" alt="github_logo"></a>
+        <a href="instagram.com/soflysvault"><img style="filter: invert();" src="images/instagram.png" alt="instagram_logo"></a>
+    </div>
+</div>
+<script src="flomo.js"></script>
+</body>
+</html>
