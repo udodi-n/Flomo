@@ -2,86 +2,54 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flomo Auth</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      background: #121212;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 2rem;
-    }
-
-    .auth-box {
-      background: #1e1e1e;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0, 255, 106, 0.2);
-      max-width: 400px;
-      width: 100%;
-    }
-
-    input {
-      display: block;
-      width: 100%;
-      padding: 0.75rem;
-      margin: 0.5rem 0;
-      border: none;
-      border-radius: 5px;
-    }
-
-    button {
-      background-color: #00ff6a;
-      color: #000;
-      padding: 0.75rem;
-      width: 100%;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      margin-top: 1rem;
-    }
-
-    button:hover {
-      background-color: #00cc57;
-    }
-
-    #user-info {
-      margin-top: 2rem;
-      display: none;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flomo Sign Up</title>
+  <link rel="stylesheet" href="sign-up.css">
 </head>
 <body>
-  <h1>Flomo Login</h1>
-
-  <div class="auth-box">
-    <form id="login-form">
-      <input type="email" id="email" placeholder="Email" required />
-      <input type="password" id="password" placeholder="Password" required />
-      <button type="submit">Login / Signup</button>
-    </form>
-
-    <button id="google-login">Sign in with Google</button>
-    <button id="logout" style="display: none;">Logout</button>
-
-    <div id="user-info">
-      <p>Signed in as: <span id="user-email"></span></p>
+  
+  <div class="container">
+    <div class="blur-mobile"> </div>
+    <div class="img">
+      <div class="blur"><img src="/images/flomo_logo.svg" alt=""></div>
+    </div>
+    <div class="auth-box">
+      <img class="mobile-logo" src="/images/flomo_logo.svg" alt="">
+      <div class="text-header">
+        <h1>Create your account</h1>
+        <p>Already have an account? <a href="/login.html">Login</a></p>
+      </div>
+      <form id="signup-form">
+        <div class="esseda">
+          <input type="text" id="fullname" placeholder="Full Name" required />
+          <input type="email" id="email" placeholder="Email" required />
+        </div>
+        <div class="password">
+          <input type="password" id="password" placeholder="Password" required />
+          <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
+        </div>
+        <div class="password-rule">Password must be at least 8 characters and include a number and special character.</div>
+        <button type="submit" class="create-account">Create Account</button>
+      </form>
+      <button id="google-signup"><img src="/images/icons8-google-logo-48.png" alt="">Sign up with Google</button>
+      <div class="t-and-c"><p>By signing up you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a></p></div>
     </div>
   </div>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      GoogleAuthProvider,
+      signInWithPopup
+    } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyA3cl2bFwWypo-k1d5UGPvnV8RU4FeGwD0",
       authDomain: "flomo-auth-70e18.firebaseapp.com",
       projectId: "flomo-auth-70e18",
-      storageBucket: "flomo-auth-70e18.firebasestorage.app",
+      storageBucket: "flomo-auth-70e18.appspot.com",
       messagingSenderId: "311805284860",
       appId: "1:311805284860:web:23d0a714b7b8ada619a279",
       measurementId: "G-BWF73JYKHD"
@@ -90,59 +58,45 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    const loginForm = document.getElementById('login-form');
-    const googleLoginBtn = document.getElementById('google-login');
-    const logoutBtn = document.getElementById('logout');
-    const userInfo = document.getElementById('user-info');
-    const userEmail = document.getElementById('user-email');
+    const signupForm = document.getElementById('signup-form');
+    const googleSignupBtn = document.getElementById('google-signup');
 
-    loginForm.addEventListener('submit', async (e) => {
+    function validatePassword(password) {
+      const regex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+      return regex.test(password);
+    }
+
+    signupForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
 
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-        console.log('Logged in:', email);
-      } catch (err) {
-        if (err.code === 'auth/user-not-found') {
-          try {
-            await createUserWithEmailAndPassword(auth, email, password);
-            console.log('Signed up:', email);
-          } catch (signUpError) {
-            alert(signUpError.message);
-          }
-        } else {
-          alert(err.message);
-        }
+      if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
       }
-    });
 
-    googleLoginBtn.addEventListener('click', async () => {
-      const provider = new GoogleAuthProvider();
+      if (!validatePassword(password)) {
+        alert("Password must be at least 8 characters long and include a number and special character.");
+        return;
+      }
+
       try {
-        await signInWithPopup(auth, provider);
+        await createUserWithEmailAndPassword(auth, email, password);
+        alert("Account created successfully!");
       } catch (err) {
         alert(err.message);
       }
     });
 
-    logoutBtn.addEventListener('click', () => {
-      signOut(auth);
-    });
-
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        userEmail.textContent = user.email;
-        userInfo.style.display = 'block';
-        logoutBtn.style.display = 'block';
-        loginForm.style.display = 'none';
-        googleLoginBtn.style.display = 'none';
-      } else {
-        userInfo.style.display = 'none';
-        logoutBtn.style.display = 'none';
-        loginForm.style.display = 'block';
-        googleLoginBtn.style.display = 'block';
+    googleSignupBtn.addEventListener('click', async () => {
+      const provider = new GoogleAuthProvider();
+      try {
+        await signInWithPopup(auth, provider);
+        alert("Signed in with Google!");
+      } catch (err) {
+        alert(err.message);
       }
     });
   </script>

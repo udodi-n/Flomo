@@ -8,11 +8,14 @@
 </head>
 <body>
 <header>
-    <h2 style="font-family: 'new-romantic', sans-serif; font-weight: 100;">Flomo</h2>
-    <a href="auth/flomo-auth.html"><h3>Signup</h3></a>
-</header>
+    <img src="images/flomo_logo.svg" alt="flomo_logo">
+    <div class="auth">
+      <a href="auth/flomo-auth.html" class="sign-up"><h3>Sign up</h3></a>
+      <a href="auth/flomo-auth.html" class="log-in"><h3>Log in</h3></a>
+    </div>
+</header> 
 <div class="container">
-    <h1>Just like Pomodoro, <br> but <span id="better" style="font-family: 'gambarino', sans-serif; font-style: italic; font-weight: 100;">better</span>
+    <h1>Just like Pomodoro, <br> but <span id="better" style="font-family: 'Inter', sans-serif; font-style: italic; font-weight: 100;">better</span>
     </h1>
     <div class="timer" id="timer">00:00</div>
     
@@ -24,7 +27,7 @@
       <button id="endSessionBtn">End Session</button>
     </div>
     
-    <div id="breakInfo" style="font-family: 'gambarino', sans-serif; font-weight: 200;"></div>
+    <div id="breakInfo" style="  font-family: 'Inter', sans-serif; font-weight: 200;"></div>
     <div id="logs" style="color: black;"></div>
 </div>
 <audio id="bellSound" src="bell.mp3" preload="auto"></audio>
@@ -36,7 +39,7 @@
         <a href="instagram.com/soflysvault"><img style="filter: invert();" src="images/instagram.png" alt="instagram_logo"></a>
     </div>
 </div>
-<script src="flomo-min.js"></script>
+<script src="flomo.js"></script>
 <script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/service-worker.js')

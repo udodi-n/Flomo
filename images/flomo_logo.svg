@@ -1,0 +1,17 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 250" width="600" height="250">
+	<title>New Project</title>
+	<style>
+		tspan { white-space:pre } 
+		.t0 { font-size: 24px;fill: #ffffff;font-weight: 400;font-family: "New-Romantics", "New Romantics" } 
+	</style>
+	<g id="Folder 1">
+		<text id="Flo" style="transform: matrix(10.255,0,0,10.255,38.523,194.342)" >
+			<tspan x="-0.2" y="0" class="t0" dx="0" >F</tspan><tspan  y="0" class="t0" dx="0" >l</tspan><tspan  y="0" class="t0" dx="0" >o</tspan><tspan  y="0" class="t0" dx="0" >
+</tspan>
+		</text>
+		<text id="mo" style="transform: matrix(10.255,0,0,10.255,327.131,194.342)" >
+			<tspan x="-0.2" y="0" class="t0" dx="0" >m</tspan><tspan  y="0" class="t0" dx="0 1" >o
+</tspan>
+		</text>
+	</g>
+</svg>
