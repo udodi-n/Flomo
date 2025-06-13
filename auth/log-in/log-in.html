@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flomo Login</title>
+  <link rel="stylesheet" href="log-in.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="blur-mobile"></div>
+
+    <div class="auth-box">
+      <img class="mobile-logo" src="/images/flomo_logo.svg" alt="Flomo Logo" />
+      <div class="text-header">
+        <h1>Log in</h1>
+        <p>Don't have an account? <a href="/auth/sign-up/sign-up.html" class="opt">Sign up</a></p>
+      </div>
+
+      <form id="login-form">
+        <input type="email" id="email" placeholder="Email" required />
+        <input type="password" id="password" placeholder="Password" required />
+        <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
+
+        <p class="password-rule">
+          Password must be at least 8 characters, include a number and special character.
+        </p>
+
+        <button type="submit" class="create-account">Get Back In!</button>
+
+        <div class="or-line">
+          <span></span>
+          <p>or</p>
+          <span></span>
+        </div>
+
+        <button type="button" id="google-login">
+          <img src="/images/icons8-google-logo-48.png" alt="Google Icon" />
+          Sign in with Google
+        </button>
+      </form>
+    </div>
+
+    <div class="img">
+      <div class="blur"><img src="/images/flomo_logo.svg" alt="Blur Logo" /></div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+    import {
+      getAuth,
+      signInWithEmailAndPassword,
+      GoogleAuthProvider,
+      signInWithPopup,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+    import {
+      getFirestore,
+      doc,
+      setDoc,
+      getDoc
+    } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA3cl2bFwWypo-k1d5UGPvnV8RU4FeGwD0",
+      authDomain: "flomo-auth-70e18.firebaseapp.com",
+      projectId: "flomo-auth-70e18",
+      storageBucket: "flomo-auth-70e18.appspot.com",
+      messagingSenderId: "311805284860",
+      appId: "1:311805284860:web:23d0a714b7b8ada619a279",
+      measurementId: "G-BWF73JYKHD"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const form = document.getElementById("login-form");
+    const googleLoginBtn = document.getElementById("google-login");
+
+    const validatePassword = (password) => {
+      const regex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+      return regex.test(password);
+    };
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      if (password !== confirmPassword) {
+        return alert("Passwords do not match.");
+      }
+
+      if (!validatePassword(password)) {
+        return alert("Password must be at least 8 characters long and include a number and special character.");
+      }
+
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        await setupUserProfile(user.uid, email);
+        window.location.href = "/dashboard.html"; // Redirect after login
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+
+    googleLoginBtn.addEventListener("click", async () => {
+      const provider = new GoogleAuthProvider();
+      try {
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        await setupUserProfile(user.uid, user.email);
+        window.location.href = "/dashboard.html"; // Redirect after login
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+
+    async function setupUserProfile(uid, email) {
+      const userRef = doc(db, "users", uid);
+      const userSnap = await getDoc(userRef);
+
+      if (!userSnap.exists()) {
+        await setDoc(userRef, {
+          email: email,
+          createdAt: new Date().toISOString(),
+          studyHours: 0 // You can update this from your timer page
+        });
+      }
+    }
+  </script>
+</body>
+</html>

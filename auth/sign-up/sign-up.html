@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Flomo Sign Up</title>
+  <script src="sign-up.js" defer></script>
   <link rel="stylesheet" href="sign-up.css">
 </head>
 <body>
@@ -13,11 +14,12 @@
     <div class="img">
       <div class="blur"><img src="/images/flomo_logo.svg" alt=""></div>
     </div>
+
     <div class="auth-box">
       <img class="mobile-logo" src="/images/flomo_logo.svg" alt="">
       <div class="text-header">
         <h1>Create your account</h1>
-        <p>Already have an account? <a href="/login.html">Login</a></p>
+        <p>Already have an account? <a href="/auth/log-in/log-in.html" class="opt">Login</a></p>
       </div>
       <form id="signup-form">
         <div class="esseda">
@@ -26,14 +28,19 @@
         </div>
         <div class="password">
           <input type="password" id="password" placeholder="Password" required />
-          <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
+          <input type="password" id="confirmPassword" placeholder="* Confirm Password" required />
         </div>
-        <div class="password-rule">Password must be at least 8 characters and include a number and special character.</div>
-        <button type="submit" class="create-account">Create Account</button>
+        <div class="btn-rule">
+          <div class="password-rule">Password must be at least 8 characters and include a number and special character.</div>
+          <button type="submit" class="create-account">Create Account</button>
+          <button id="google-signup"><img src="/images/icons8-google-logo-48.png" alt="">Sign up with Google</button>
+        </div>
       </form>
-      <button id="google-signup"><img src="/images/icons8-google-logo-48.png" alt="">Sign up with Google</button>
       <div class="t-and-c"><p>By signing up you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a></p></div>
     </div>
+
+    
+    
   </div>
 
   <script type="module">

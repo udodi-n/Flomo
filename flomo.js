@@ -5,6 +5,7 @@ let logs = [];
 let hasStopped = false; // NEW: flag to check if stop was clicked
 
 const timerEl = document.getElementById("timer");
+const timeDisplayEl = document.getElementById("timeDisplay"); // NEW: reference to the h2
 const startBtn = document.getElementById("startBtn");
 const stopBtn = document.getElementById("stopBtn");
 const endSessionBtn = document.getElementById("endSessionBtn");
@@ -29,7 +30,7 @@ function updateTimer() {
   const elapsed = Date.now() - startTime;
   const minutes = Math.floor(elapsed / 60000);
   const seconds = Math.floor((elapsed % 60000) / 1000);
-  timerEl.textContent = `${pad(minutes)}:${pad(seconds)}`;
+  timeDisplayEl.textContent = `${pad(minutes)}:${pad(seconds)}`;
 }
 
 function pad(num) {
@@ -72,7 +73,7 @@ function stopOrReset() {
       showNotification();
     }, totalBreakMs);
   } else {
-    timerEl.textContent = "00:00";
+    timeDisplayEl.textContent = "00:00";
     breakInfoEl.textContent = "";
     stopBtn.textContent = "Stop";
   }
@@ -111,7 +112,7 @@ function endSession() {
     logsEl.innerHTML = "";
   }
 
-  timerEl.textContent = "00:00";
+  timeDisplayEl.textContent = "00:00";
   stopBtn.textContent = "Stop";
   hasStopped = false; // Reset for next session
 }

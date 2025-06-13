@@ -21,6 +21,7 @@
     }
 
     .container {
+        position: relative;
         display: flex;
         width: 70%;
         height: 80%;
@@ -34,10 +35,16 @@
     .img {
         position: relative;
         background: url('/images/hero-left.png');
-        background-size: contain;
+        background-size: cover;
+        background-repeat: no-repeat;
         height: 100%;
         width: 50%;
         border-radius: 16px;
+        transition: all 0.5s ease;
+    }
+
+    .img.slide {
+        transform: translateX(100%);
     }
 
     .img .blur {
@@ -56,8 +63,14 @@
         width: 25%;
     }
 
+    .btn-rule {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
     .auth-box {
         display: flex;
+        gap: 2rem;
         flex-direction: column;
         justify-content: center;
         padding: 0 5rem;
@@ -73,14 +86,13 @@
 
     .auth-box .text-header {
         display: flex;
+        gap: 1rem;
         flex-direction: column;
-        height: 15%;
         width: 100%;
         align-items: flex-start;
     }
 
     .text-header p {
-        margin-top: 1rem;
         font-size: 12px;
         font-weight: 300;
     }
@@ -134,7 +146,6 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      margin-top: 1rem;
       font-family: "Inter", sans-serif;
     }
 
@@ -148,7 +159,7 @@
         color: #000;
     }
 
-    #google-signup {
+    #google-login{
         display: flex;
         justify-content: center;
         align-items: center;
@@ -159,12 +170,12 @@
         transition: all 0.3s ease;
     }
 
-    #google-signup:hover {
+    #google-login:hover {
         background: #ffffff07;
         backdrop-filter: blur(2px);
     }
 
-    #google-signup img{
+    #google-login img{
         width: 8%;
     }
 
@@ -182,7 +193,6 @@
     .t-and-c {
         display: flex;
         align-items: flex-end;
-        height: 10%;
         font-size: 12px;
         font-weight: 300;
     }
@@ -192,11 +202,72 @@
         text-decoration: none;
     }
 
-    @media (min-width: 360px) and (max-width: 480px) {
+    @media (min-width: 344px) and (max-width: 480px) {
 
         .container {
             position: relative;
             width: 100%;
+            height: auto;
+            background: url('/images/hero-left.png');
+            background-size: contain;
+            border-radius: 8px;
+        }
+
+        .mobile-logo {
+            display: flex;
+            height: 15%;
+            width: 30%;
+            margin-bottom: 1rem;
+        }
+        .auth-box {
+            padding: 1rem 1.7rem;
+            width: 100%;
+            z-index: 2;
+        }
+
+        .auth-box-login {
+            padding: 2rem;
+            width: 100%;
+        }
+
+        .input {
+            font-weight: 400;
+            color: #fff;
+        }
+
+        .password-rule {
+            font-weight: 200;
+            color: #eeeeee;
+        }
+        #google-login {
+            border: 1px solid #ffffff31;
+    }
+        .img {
+            display: none;
+        }
+
+        .blur-mobile {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            backdrop-filter: blur(4px);
+            z-index: 1;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .t-and-c {
+            margin-top: 2rem;
+        }
+    }
+
+    @media (min-width: 480px) and (max-width: 750px) {
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: auto;
             background: url('/images/hero-left.png');
             background-size: contain;
             border-radius: 8px;
@@ -213,6 +284,10 @@
             z-index: 2;
         }
 
+        .auth-box-login {
+            width: 100%;
+        }
+
         .input {
             font-weight: 400;
             color: #fff;
@@ -222,7 +297,7 @@
             font-weight: 200;
             color: #eeeeee;
         }
-        #google-signup {
+        #google-login {
             border: 1px solid #ffffff31;
     }
         .img {
@@ -240,52 +315,13 @@
             border-radius: 8px;
         }
     }
-
-    @media (min-width: 480px) and (max-width: 768px) {
-
+    @media (min-width: 768px) and (max-width: 1024px) {
         .container {
-            position: relative;
-            width: 100%;
-            background: url('/images/hero-left.png');
-            background-size: contain;
-            border-radius: 8px;
+            width: 95%;
+            height: auto;
         }
 
-        .mobile-logo {
-            display: flex;
-            height: 15%;
-            width: 30%;
-        }
         .auth-box {
-            padding: 1rem 1.7rem;
-            width: 100%;
-            z-index: 2;
-        }
-
-        .input {
-            font-weight: 400;
-            color: #fff;
-        }
-
-        .password-rule {
-            font-weight: 200;
-            color: #eeeeee;
-        }
-        #google-signup {
-            border: 1px solid #ffffff31;
-    }
-        .img {
-            display: none;
-        }
-
-        .blur-mobile {
-            position: absolute;
-            top: 0;
-            height: 100%;
-            width: 100%;
-            backdrop-filter: blur(4px);
-            z-index: 1;
-            display: block;
-            border-radius: 8px;
+            padding: 5rem 2rem;
         }
     }
